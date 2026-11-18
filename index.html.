@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Little Gift for Hanu 🎀</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ background:linear-gradient(145deg,#fff0f6,#fbd6e8,#f8e6f2);
+ color:#853d62;font-family:Georgia,serif;text-align:center
+}
+main{max-width:620px;margin:auto;padding:38px 18px 50px;min-height:100vh}
+h1{font-size:clamp(38px,10vw,58px);color:#b64e83;margin:12px 0 5px}
+h2{font-size:26px;margin:18px 0 10px}
+p{line-height:1.75}
+.small{font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+button{cursor:pointer;border:0}
+.btn{
+ background:linear-gradient(120deg,#db78a7,#b64e83);
+ color:white;border-radius:30px;padding:13px 23px;
+ font:600 13px Arial;
+ box-shadow:0 5px 14px #b54b7c30
+}
+.gift{
+ font-size:95px;display:inline-block;
+ animation:bounce 2s infinite;
+ filter:drop-shadow(0 8px 7px #a74a6c35)
+}
+@keyframes bounce{
+ 0%,100%{transform:translateY(0) rotate(-3deg)}
+ 50%{transform:translateY(-9px) rotate(3deg)}
+}
+.card{
+ background:#fffafd;border:1px solid #f0c4d9;
+ border-radius:18px;padding:20px;
+ box-shadow:0 7px 20px #b65c8420
+}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.tile{
+ background:#fff9fc;border:1px solid #f1c7d9;
+ border-radius:15px;padding:18px 8px;
+ min-height:105px;font-size:30px;color:#853d62
+}
+.tile span{
+ display:block;font:12px Arial;margin-top:8px;color:#955271
+}
+.wide{grid-column:1/-1}
+.hidden{display:none}
+.show{display:block;animation:appear .45s ease}
+@keyframes appear{
+ from{opacity:0;transform:translateY(12px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.float{
+ position:fixed;bottom:-25px;pointer-events:none;
+ animation:float 5s linear forwards;z-index:4
+}
+@keyframes float{
+ to{transform:translateY(-110vh) rotate(35deg);opacity:0}
+}
+footer{
+ border-top:1px solid #e8b5cd;padding-top:18px;
+ margin-top:32px;font-size:12px;font-style:italic;color:#a56d87
+}
+</style>
+</head>
+<body>
+<main>
+
+<div class="small">A royal delivery for</div>
+<h1>Hanu 🎀</h1>
+<p><i>One girl. A million reasons to smile.</i></p>
+
+<div style="font-size:55px;margin:24px">🧚🏻‍♀️</div>
+
+<section id="intro">
+<h2>Your little surprise is here!</h2>
+<p>A tiny magical box filled with love, hugs and things I wish I could give you in person.</p>
+
+<div style="padding:18px">
+<div class="gift">🎁</div>
+</div>
+
+<p><i>Psst... it's all yours, princess!</i></p>
+<button class="btn" id="open">OPEN MY GIFT ✨</button>
+</section>
+
+<section id="inside" class="hidden">
+<h2>Surprise, my princess! 💗</h2>
+<p>Choose a little present, Hanu.</p>
+
+<div class="grid">
+<button class="tile" data="flowers">
+💐<span>A bouquet for you</span>
+</button>
+
+<button class="tile" data="letter">
+💌<span>A letter from me</span>
+</button>
+
+<button class="tile" data="crown">
+👑<span>Your royal title</span>
+</button>
+
+<button class="tile" data="promise">
+🫶🏻<span>A promise for you</span>
+</button>
+
+<button class="tile wide" data="final">
+💝<span>One last surprise...</span>
+</button>
+</div>
+</section>
+
+<section id="content" class="hidden" style="margin-top:22px">
+<div class="card">
+<div id="emoji" style="font-size:48px">💗</div>
+<h2 id="heading"></h2>
+<p id="message"></p>
+</div>
+
+<button class="btn" id="back" style="margin-top:18px">
+← BACK TO MY GIFTS
+</button>
+</section>
+
+<footer>Wrapped with love, especially for Hanu ♡</footer>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+
+const gifts={
+
+flowers:[
+'💐',
+'A bouquet for Hanu',
+'If I could send you flowers through this screen, I would fill your entire room with them. Every flower would carry one little reminder: you are precious, beautiful and so loved. 🌷'
+],
+
+letter:[
+'💌',
+'My dearest Hanu,',
+'I am sorry I missed wishing you on Princess Day. I never wanted you to feel forgotten. You deserve to be celebrated, not just on special dates, but in all the ordinary moments too. I may not always get everything right, but I hope I can keep giving you reasons to smile. You are my favourite little blessing. ❤️'
+],
+
+crown:[
+'👑',
+'Her Royal Highness, Hanu',
+'By the royal decree of this very silly boy, Hanu is hereby crowned the Princess of his heart. Her royal duties include smiling, being adorable, accepting hugs and never doubting how special she is. Valid forever. 👸🏻'
+],
+
+promise:[
+'🫶🏻',
+'A little promise',
+'I promise to try harder to remember the little things that matter to you, to listen when something hurts, to appreciate your presence and never let a missed date make you question your importance. You deserve thoughtful love.'
+],
+
+final:[
+'💝',
+'My favourite gift is YOU',
+'This little box has flowers, words and promises. But my favourite gift isn’t inside it. It’s the chance to make you smile, to know you and to share little moments with you. Happy Princess Day, Hanu. I love you, princess. 💗'
+]
+
+};
+
+function confetti(){
+ for(let i=0;i<14;i++){
+  let s=document.createElement('span');
+  s.className='float';
+  s.textContent=['💕','✨','🌸','♡','🎀'][i%5];
+  s.style.left=Math.random()*96+'vw';
+  s.style.fontSize=(15+Math.random()*15)+'px';
+  s.style.animationDelay=Math.random()*.8+'s';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),6000);
+ }
+}
+
+$('open').onclick=()=>{
+ $('intro').classList.add('hidden');
+ $('inside').classList.add('show');
+ confetti();
+};
+
+document.querySelectorAll('[data]').forEach(b=>{
+ b.onclick=()=>{
+  let d=gifts[b.getAttribute('data')];
+
+  $('emoji').textContent=d[0];
+  $('heading').textContent=d[1];
+  $('message').textContent=d[2];
+
+  $('inside').classList.remove('show');
+  $('content').classList.add('show');
+
+  confetti();
+ };
+});
+
+$('back').onclick=()=>{
+ $('content').classList.remove('show');
+ $('inside').classList.add('show');
+};
+</script>
+
+</body>
+</html>
